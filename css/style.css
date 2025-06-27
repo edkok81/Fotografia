@@ -1,0 +1,59 @@
+* {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.grayscale-image {
+  filter: grayscale(100%);
+}
+
+/* Efeito de zoom discreto para as imagens do portfólio */
+.portfolio-image {
+    transition: transform 0.3s ease-in-out; /* Transição suave para o zoom */
+    cursor: pointer; /* Indica que a imagem é clicável */
+}
+
+.portfolio-image:hover {
+    transform: scale(1.02); /* Aplica um pequeno zoom de 2% */
+}
+
+/* Estilo para o modal de imagem em tela cheia */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica por cima de todo o conteúdo */
+    z-index: 1000; /* Z-index alto para garantir que esteja no topo */
+    padding-top: 50px; /* Espaço do topo */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Permite scroll se a imagem for maior que a tela */
+    background-color: rgba(0, 0, 0, 0.9); /* Fundo preto semi-transparente */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Botão de fechar o modal */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
