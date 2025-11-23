@@ -1,250 +1,413 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
-  <title>Caê Kokubo - Filmmaker e Analista de Sistemas</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Caê Kokubo - Filmmaker, Editor de Vídeos e Analista de Sistemas. Portfolio de fotografia e trabalhos audiovisuais.">
+  <meta name="keywords" content="filmmaker, fotografia, edição de vídeo, direção de fotografia, portfolio">
+  <meta name="author" content="Caê Kokubo">
 
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Caê Kokubo - Filmmaker e Analista de Sistemas">
+  <meta property="og:description" content="Portfolio de fotografia e trabalhos audiovisuais">
+
+  <title>Caê Kokubo - Filmmaker e Analista de Sistemas</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Share+Tech+Mono&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap"
     rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abel&family=Noto+Sans+JP:wght@100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Share+Tech+Mono&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/cssa/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <style>
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: "Abel", sans-serif
-    }
-
-    .w3-row-padding img {
-      margin-bottom: 12px
-    }
-
-    /* Set the width of the sidebar to 120px */
-    .w3-sidebar {
-      width: 120px;
-      background: #222;
-    }
-
-    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-    #main {
-      margin-left: 120px
-    }
-
-    /* Remove margins from "page content" on small screens */
-    @media only screen and (max-width: 600px) {
-      #main {
-        margin-left: 0
-      }
-    }
-  </style>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/modern-style.css">
 </head>
 
-<body class="w3-black">
+<body>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar__avatar">
+      <img src="img/canto.png" alt="Caê Kokubo" class="sidebar__avatar-img">
+    </div>
 
-  <!-- Icon Bar (Sidebar - hidden on small screens) -->
-  <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-    <!-- Avatar image in top left corner -->
-    <img class="portfolio-image" src="img/canto.png" style="width:100%">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-      <i class="fa fa-home w3-xxlarge"></i>
-      <p>HOME</p>
-    </a>
-    <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-      <i class="fa fa-user w3-xxlarge"></i>
-      <p>SOBRE</p>
-    </a>
-    <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-      <i class="fa fa-eye w3-xxlarge"></i>
-      <p>FOTOS</p>
-    </a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-      <i class="fa fa-envelope w3-xxlarge"></i>
-      <p>CONTATO</p>
-    </a>
+    <ul class="sidebar__menu">
+      <li class="sidebar__menu-item">
+        <a href="#home" class="sidebar__link sidebar__link--active" data-section="home">
+          <i class="fa-solid fa-house"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      <li class="sidebar__menu-item">
+        <a href="#about" class="sidebar__link" data-section="about">
+          <i class="fa-solid fa-user"></i>
+          <span>SOBRE</span>
+        </a>
+      </li>
+      <li class="sidebar__menu-item">
+        <a href="#photos" class="sidebar__link" data-section="photos">
+          <i class="fa-solid fa-camera"></i>
+          <span>FOTOS</span>
+        </a>
+      </li>
+      <li class="sidebar__menu-item">
+        <a href="#contact" class="sidebar__link" data-section="contact">
+          <i class="fa-solid fa-envelope"></i>
+          <span>CONTATO</span>
+        </a>
+      </li>
+    </ul>
   </nav>
 
-  <!-- Navbar on small screens (Hidden on medium and large screens) -->
-  <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-      <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-      <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">SOBRE</a>
-      <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">FOTOS</a>
-      <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTATO</a>
-    </div>
-  </div>
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+    <a href="#home" class="mobile-nav__link mobile-nav__link--active" data-section="home">HOME</a>
+    <a href="#about" class="mobile-nav__link" data-section="about">SOBRE</a>
+    <a href="#photos" class="mobile-nav__link" data-section="photos">FOTOS</a>
+    <a href="#contact" class="mobile-nav__link" data-section="contact">CONTATO</a>
+  </nav>
 
-  <!-- Page Content -->
-  <div class="w3-padding-large" id="main">
-    <!-- Header/Home -->
-    <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-      <h1 class="w3-jumbo"><span class="w3-hide-small">Eu sou o Caê Kokubo</h1>
-      <p>Filmmaker, Editor de Vídeos e Estudante de TI</p>
-      <img src="img/centro.png" alt="cae" class="w3-image  portfolio-image" width="662" height="808">
-    </header>
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Hero Section -->
+    <section class="hero section" id="home">
+      <div class="hero__content">
+        <h1 class="hero__title">
+          <span class="hero__title-greeting">Eu sou o</span>
+          <span class="hero__title-name">Caê Kokubo</span>
+        </h1>
+        <p class="hero__subtitle">Filmmaker, Editor de Vídeos e Estudante de TI</p>
+        <div class="hero__image-wrapper">
+          <img src="img/centro.png" alt="Caê Kokubo - Filmmaker" class="hero__image" width="662" height="808">
+        </div>
+      </div>
+      <div class="hero__scroll-indicator">
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </section>
 
     <!-- About Section -->
-    <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-      <h2 class="w3-text-light-grey">Sobre mim</h2>
-      <hr style="width:200px" class="w3-opacity">
-      <p>Meu nome é Caê Kokubo. Tenho 44 anos. Sou graduado em Música pela Universidadde Federal do Paraná,
-        e Especialista em Cinema pela Faculdade de Artes do Paraná (UNESPAR).<br><br>
-        Trabalhei por muitos anos como Diretor de Fotografia e Montador nas áreas de Cinema,
-        Clipes Musicais e Produção de Aulas EAD.<br><br>
-        Atualmente estou fazendo uma nova graduação em Análise e Desenvolvimento de Sistemas pela PUCPR, depois
-        de ter finalizado Cybersecurity Certificate do Google e Gen AI da IBM, ambos pela Coursera.<br><br>
-        Criar esse site foi uma maneira que encontrei de por em prática alguns conhecimentos adquiridos no curso
-        de ADS, ao mesmo tempo que serve como uma espécie de Currículo Virtual.<br><br>
-        Obrigado por observar meu trabalho!
-      </p>
-      <h3 class="w3-padding-16 w3-text-light-grey">Minhas Habilidades</h3>
-      <p class="w3-wide">Direção de Fotografia</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:95%"></div>
-      </div>
-      <p class="w3-wide">Premiere</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-      </div>
-      <p class="w3-wide">Operação de Câmeras DSLR</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-      </div>
-      <p class="w3-wide">Java</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:30%"></div>
-      </div>
-      <p class="w3-wide">Python</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:30%"></div>
-      </div>
-      <p class="w3-wide">Cybersecurity</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:30%"></div>
-      </div>
-      <p class="w3-wide">HTML, CSS e JS</p>
-      <div class="w3-white">
-        <div class="w3-dark-grey" style="height:28px;width:30%"></div>
-      </div>
+    <section class="section section--about" id="about">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">Sobre mim</h2>
+        </header>
 
-      <br>
+        <article class="about">
+          <div class="about__bio">
+            <p>Meu nome é Caê Kokubo. Tenho 44 anos. Sou graduado em Música pela Universidade Federal do Paraná, e
+              Especialista em Cinema pela Faculdade de Artes do Paraná (UNESPAR).</p>
 
-      <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-        <div class="w3-quarter w3-section">
-          <span class="w3-xlarge">17+</span><br>
-          Anos de Experiência
-        </div>
-        <div class="w3-quarter w3-section">
-          <span class="w3-xlarge">50+</span><br>
-          Filmes Produzidos
-        </div>
-        <div class="w3-quarter w3-section">
-          <span class="w3-xlarge">1</span><br>
-          Prêmio de Melhor Documentário
-        </div>
-        <div class="w3-quarter w3-section">
-          <span class="w3-xlarge">150+</span><br>
-          Trabalhos em Vídeo
-        </div>
+            <p>Trabalhei por muitos anos como Diretor de Fotografia e Montador nas áreas de Cinema, Clipes Musicais e
+              Produção de Aulas EAD.</p>
+
+            <p>Atualmente estou fazendo uma nova graduação em Análise e Desenvolvimento de Sistemas pela PUCPR, depois
+              de ter finalizado Cybersecurity Certificate do Google e Gen AI da IBM, ambos pela Coursera.</p>
+
+            <p>Criar esse site foi uma maneira que encontrei de por em prática alguns conhecimentos adquiridos no curso
+              de ADS, ao mesmo tempo que serve como uma espécie de Currículo Virtual.</p>
+
+            <p>Obrigado por observar meu trabalho!</p>
+          </div>
+
+          <div class="skills">
+            <h3 class="skills__title">Minhas Habilidades</h3>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">Direção de Fotografia</span>
+                <span class="skill__percentage">95%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="95"></div>
+              </div>
+            </div>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">Premiere</span>
+                <span class="skill__percentage">80%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="80"></div>
+              </div>
+            </div>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">Operação de Câmeras DSLR</span>
+                <span class="skill__percentage">80%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="80"></div>
+              </div>
+            </div>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">Java</span>
+                <span class="skill__percentage">30%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="30"></div>
+              </div>
+            </div>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">Python</span>
+                <span class="skill__percentage">30%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="30"></div>
+              </div>
+            </div>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">Cybersecurity</span>
+                <span class="skill__percentage">30%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="30"></div>
+              </div>
+            </div>
+
+            <div class="skill">
+              <div class="skill__header">
+                <span class="skill__name">HTML, CSS e JS</span>
+                <span class="skill__percentage">30%</span>
+              </div>
+              <div class="skill__bar">
+                <div class="skill__fill" data-width="30"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-card__value" data-target="17">0</div>
+              <div class="stat-card__label">Anos de Experiência</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card__value" data-target="50">0</div>
+              <div class="stat-card__label">Filmes Produzidos</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card__value" data-target="1">0</div>
+              <div class="stat-card__label">Prêmio de Melhor Documentário</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card__value" data-target="150">0</div>
+              <div class="stat-card__label">Trabalhos em Vídeo</div>
+            </div>
+          </div>
+
+          <button class="btn btn--primary" id="downloadCurriculo" aria-label="Download do Currículo">
+            <i class="fa-solid fa-download"></i>
+            <span>Download do Currículo</span>
+          </button>
+        </article>
       </div>
-
-      <button class="w3-button w3-light-grey w3-padding-large w3-section">
-        <i class="fa fa-download"></i> Download do Currículo
-      </button>
-    </div>
+    </section>
 
     <!-- Portfolio Section -->
-    <div class="w3-padding-64 w3-content" id="photos">
-      <h2 class="w3-text-light-grey">Minhas Fotos</h2>
-      <hr style="width:200px" class="w3-opacity">
+    <section class="section section--portfolio" id="photos">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">Minhas Fotos</h2>
+        </header>
 
-      <!-- Grid for photos -->
-      <div class="w3-row-padding" style="margin:0 -16px">
-        <div class="w3-half">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_1314.JPG" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0041.jpg" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0191.JPG" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0171.JPG" style="width:100%">
-        </div>
+        <div class="gallery">
+          <div class="gallery__item" data-index="0">
+            <img src="img/fotosSite/IMG_1314.JPG" alt="Fotografia 1" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
 
-        <div class="w3-half">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0068.jpg" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0076.JPG" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0084.JPG" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0154.JPG" style="width:100%">
-          <img class="grayscale-image portfolio-image" src="img/fotosSite/IMG_0973.jpg" style="width:100%">
+          <div class="gallery__item" data-index="1">
+            <img src="img/fotosSite/IMG_0041.jpg" alt="Fotografia 2" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="2">
+            <img src="img/fotosSite/IMG_0191.JPG" alt="Fotografia 3" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="3">
+            <img src="img/fotosSite/IMG_0171.JPG" alt="Fotografia 4" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="4">
+            <img src="img/fotosSite/IMG_0068.jpg" alt="Fotografia 5" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="5">
+            <img src="img/fotosSite/IMG_0076.JPG" alt="Fotografia 6" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="6">
+            <img src="img/fotosSite/IMG_0084.JPG" alt="Fotografia 7" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="7">
+            <img src="img/fotosSite/IMG_0154.JPG" alt="Fotografia 8" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
+
+          <div class="gallery__item" data-index="8">
+            <img src="img/fotosSite/IMG_0973.jpg" alt="Fotografia 9" class="gallery__image" loading="lazy">
+            <div class="gallery__overlay">
+              <i class="fa-solid fa-expand"></i>
+            </div>
+          </div>
         </div>
-        <!-- End photo grid -->
       </div>
-
-      <!-- End Portfolio Section -->
-    </div>
+    </section>
 
     <!-- Contact Section -->
-    <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-      <h2 class="w3-text-light-grey">Contato</h2>
-      <hr style="width:200px" class="w3-opacity">
+    <section class="section section--contact" id="contact">
+      <div class="container">
+        <header class="section__header">
+          <h2 class="section__title">Contato</h2>
+        </header>
 
-      <div class="w3-section">
-        <p><a href="https://www.linkedin.com/in/eddeveloper/" target="_blank">LinkedIn</a></p>
-        <p><a href="mailto: cae.ctba@mail.com">cae.ctba@gmail.com</a></p>
-      </div><br>
+        <div class="contact">
+          <div class="contact__info">
+            <div class="contact__item">
+              <i class="fa-brands fa-linkedin"></i>
+              <a href="https://www.linkedin.com/in/eddeveloper/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+            <div class="contact__item">
+              <i class="fa-solid fa-envelope"></i>
+              <a href="mailto:cae.ctba@gmail.com">cae.ctba@gmail.com</a>
+            </div>
+          </div>
 
-      <p>Se preferir, me escreva uma mensagem aqui:</p>
+          <div class="contact__form-wrapper">
+            <p class="contact__form-intro">Se preferir, me escreva uma mensagem aqui:</p>
 
-      <form id="contactForm" action="https://formsubmit.co/cae.ctba@gmail.com" method="POST">
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Nome" required name="name"></p>
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="email"></p>
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Assunto" required name="_subject"></p>
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Mensagem" required name="message"></p>
-        <p>
-          <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-            <i class="fa fa-paper-plane"></i> ENVIAR MENSAGEM
-          </button>
-        </p>
-      </form>
-      <!-- End Contact Section -->
-    </div>
+            <form id="contactForm" class="contact-form" action="https://formsubmit.co/cae.ctba@gmail.com" method="POST"
+              novalidate>
+              <div class="form-group">
+                <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
+                <label for="name" class="form-label">Nome</label>
+                <span class="form-error" data-error="name"></span>
+              </div>
+
+              <div class="form-group">
+                <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
+                <label for="email" class="form-label">Email</label>
+                <span class="form-error" data-error="email"></span>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="subject" name="_subject" class="form-input" placeholder=" " required>
+                <label for="subject" class="form-label">Assunto</label>
+                <span class="form-error" data-error="subject"></span>
+              </div>
+
+              <div class="form-group">
+                <textarea id="message" name="message" class="form-input form-input--textarea" placeholder=" " required
+                  rows="5"></textarea>
+                <label for="message" class="form-label">Mensagem</label>
+                <span class="form-error" data-error="message"></span>
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--full">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Enviar Mensagem</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-      <i class="fa fa-facebook-official w3-hover-opacity"></i>
-      <i class="fa fa-instagram w3-hover-opacity"></i>
-      <i class="fa fa-snapchat w3-hover-opacity"></i>
-      <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-      <i class="fa fa-twitter w3-hover-opacity"></i>
-      <i class="fa fa-linkedin w3-hover-opacity"></i>
-      <p>Obrigado por acompanhar meu trabalho. Entre em contato. Estou aguardando!</p>
-      <p class="w3-medium">Feito com a utilização do Framework <a href="https://www.w3schools.com/w3css/default.asp"
-          target="_blank" class="w3-hover-text-green">w3.css</a></p>
-      <!-- End footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__social">
+          <a href="#" class="footer__social-link" aria-label="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Snapchat">
+            <i class="fa-brands fa-snapchat"></i>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Pinterest">
+            <i class="fa-brands fa-pinterest"></i>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Twitter">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/eddeveloper/" target="_blank" rel="noopener noreferrer"
+            class="footer__social-link" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+        </div>
+
+        <p class="footer__text">Obrigado por acompanhar meu trabalho. Entre em contato. Estou aguardando!</p>
+
+        <p class="footer__credit">
+          Desenvolvido com <i class="fa-solid fa-heart"></i> usando HTML, CSS e JavaScript
+        </p>
+      </div>
     </footer>
+  </main>
 
-    <!-- END PAGE CONTENT -->
+  <!-- Image Modal -->
+  <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-label="Visualização de imagem">
+    <button class="modal__close" aria-label="Fechar modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal__content">
+      <img src="" alt="" class="modal__image" id="modalImage">
+      <div class="modal__controls">
+        <button class="modal__nav modal__nav--prev" aria-label="Imagem anterior">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="modal__nav modal__nav--next" aria-label="Próxima imagem">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div id="imageModal" class="modal">
-    <span class="close-button">&times;</span>
-    <img class="modal-content" id="img01">
-  </div>
-
-  <script src="js/script.js"></script>
-
+  <!-- JavaScript -->
+  <script src="js/animations.js"></script>
 </body>
 
 </html>
