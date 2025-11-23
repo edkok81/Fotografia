@@ -1,65 +1,503 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Zoom discreto e abrir imagem em tela cheia
-    const portfolioImages = document.querySelectorAll('.portfolio-image');
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('img01');
-    const closeButton = document.querySelector('.close-button');
+// ============================================
+// MODERN PORTFOLIO - ENHANCED JAVASCRIPT
+// ============================================
 
-    portfolioImages.forEach(image => {
-        image.addEventListener('click', () => {
-            modal.style.display = 'block';
-            modalImg.src = image.src;
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+
+// Debounce function for performance optimization
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Smooth scroll to element
+function smoothScrollTo(element) {
+    const targetPosition = element.offsetTop;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = 1000;
+    let start = null;
+
+    function animation(currentTime) {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+
+    function easeInOutCubic(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t + b;
+        t -= 2;
+        return c / 2 * (t * t * t + 2) + b;
+    }
+
+    requestAnimationFrame(animation);
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+
+class Navigation {
+    constructor() {
+        this.sidebarLinks = document.querySelectorAll('.sidebar__link');
+        this.mobileLinks = document.querySelectorAll('.mobile-nav__link');
+        this.sections = document.querySelectorAll('section[id]');
+        this.init();
+    }
+
+    init() {
+        // Handle navigation clicks
+        [...this.sidebarLinks, ...this.mobileLinks].forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    smoothScrollTo(targetSection);
+                }
+            });
         });
-    });
 
-    // Fechar o modal ao clicar no botão de fechar
-    closeButton.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+        // Handle scroll-based active state
+        window.addEventListener('scroll', debounce(() => this.updateActiveLink(), 100));
+    }
 
-    // Fechar o modal ao clicar fora da imagem
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+    updateActiveLink() {
+        const scrollPosition = window.pageYOffset + 100;
+
+        this.sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                // Update sidebar links
+                this.sidebarLinks.forEach(link => {
+                    link.classList.remove('sidebar__link--active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('sidebar__link--active');
+                    }
+                });
+
+                // Update mobile links
+                this.mobileLinks.forEach(link => {
+                    link.classList.remove('mobile-nav__link--active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('mobile-nav__link--active');
+                    }
+                });
+            }
+        });
+    }
+}
+
+// ============================================
+// ANIMATED COUNTERS
+// ============================================
+
+class AnimatedCounter {
+    constructor() {
+        this.counters = document.querySelectorAll('.stat-card__value');
+        this.hasAnimated = false;
+        this.init();
+    }
+
+    init() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.hasAnimated) {
+                    this.animateCounters();
+                    this.hasAnimated = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            observer.observe(statsSection);
         }
-    });
+    }
 
-    // 2. Download do currículo
-    const downloadButton = document.getElementById('downloadCurriculo');
-    if (downloadButton) {
-        downloadButton.addEventListener('click', () => {
-            // Substituir 'caminho/do/curriculo.pdf' pelo caminho real do arquivo.
-            // Certificar que o arquivo esteja no diretório correto no servidor.
-            const cvPath = '/docs/curriculo.pdf'; // Exemplo: se o currículo estiver em uma pasta 'docs'
+    animateCounters() {
+        this.counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = Math.floor(current) + '+';
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target + '+';
+                }
+            };
+
+            updateCounter();
+        });
+    }
+}
+
+// ============================================
+// SKILL BARS ANIMATION
+// ============================================
+
+class SkillBars {
+    constructor() {
+        this.skillFills = document.querySelectorAll('.skill__fill');
+        this.hasAnimated = false;
+        this.init();
+    }
+
+    init() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.hasAnimated) {
+                    this.animateSkills();
+                    this.hasAnimated = true;
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const skillsSection = document.querySelector('.skills');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+    }
+
+    animateSkills() {
+        this.skillFills.forEach((fill, index) => {
+            setTimeout(() => {
+                const width = fill.getAttribute('data-width');
+                fill.style.width = width + '%';
+            }, index * 100);
+        });
+    }
+}
+
+// ============================================
+// IMAGE GALLERY & MODAL
+// ============================================
+
+class ImageGallery {
+    constructor() {
+        this.galleryItems = document.querySelectorAll('.gallery__item');
+        this.modal = document.getElementById('imageModal');
+        this.modalImage = document.getElementById('modalImage');
+        this.closeButton = document.querySelector('.modal__close');
+        this.prevButton = document.querySelector('.modal__nav--prev');
+        this.nextButton = document.querySelector('.modal__nav--next');
+        this.currentIndex = 0;
+        this.images = [];
+
+        this.init();
+    }
+
+    init() {
+        // Collect all images
+        this.galleryItems.forEach((item, index) => {
+            const img = item.querySelector('.gallery__image');
+            this.images.push({
+                src: img.src,
+                alt: img.alt
+            });
+
+            // Click to open modal
+            item.addEventListener('click', () => this.openModal(index));
+        });
+
+        // Close button
+        if (this.closeButton) {
+            this.closeButton.addEventListener('click', () => this.closeModal());
+        }
+
+        // Navigation buttons
+        if (this.prevButton) {
+            this.prevButton.addEventListener('click', () => this.showPrevious());
+        }
+        if (this.nextButton) {
+            this.nextButton.addEventListener('click', () => this.showNext());
+        }
+
+        // Click outside to close
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!this.modal.classList.contains('active')) return;
+
+            switch (e.key) {
+                case 'Escape':
+                    this.closeModal();
+                    break;
+                case 'ArrowLeft':
+                    this.showPrevious();
+                    break;
+                case 'ArrowRight':
+                    this.showNext();
+                    break;
+            }
+        });
+    }
+
+    openModal(index) {
+        this.currentIndex = index;
+        this.updateModalImage();
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeModal() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    showPrevious() {
+        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+        this.updateModalImage();
+    }
+
+    showNext() {
+        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        this.updateModalImage();
+    }
+
+    updateModalImage() {
+        const image = this.images[this.currentIndex];
+        this.modalImage.src = image.src;
+        this.modalImage.alt = image.alt;
+    }
+}
+
+// ============================================
+// FORM VALIDATION
+// ============================================
+
+class FormValidator {
+    constructor() {
+        this.form = document.getElementById('contactForm');
+        this.init();
+    }
+
+    init() {
+        if (!this.form) return;
+
+        this.form.addEventListener('submit', (e) => {
+            if (!this.validateForm()) {
+                e.preventDefault();
+            }
+        });
+
+        // Real-time validation
+        const inputs = this.form.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
+            input.addEventListener('input', () => this.clearError(input));
+        });
+    }
+
+    validateForm() {
+        let isValid = true;
+        const inputs = this.form.querySelectorAll('.form-input[required]');
+
+        inputs.forEach(input => {
+            if (!this.validateField(input)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    validateField(input) {
+        const value = input.value.trim();
+        const type = input.type;
+        const name = input.name;
+
+        // Clear previous error
+        this.clearError(input);
+
+        // Check if empty
+        if (!value) {
+            this.showError(input, 'Este campo é obrigatório');
+            return false;
+        }
+
+        // Email validation
+        if (type === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                this.showError(input, 'Por favor, insira um email válido');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    showError(input, message) {
+        const formGroup = input.closest('.form-group');
+        const errorElement = formGroup.querySelector('.form-error');
+
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.classList.add('active');
+        }
+
+        input.style.borderColor = '#ef4444';
+    }
+
+    clearError(input) {
+        const formGroup = input.closest('.form-group');
+        const errorElement = formGroup.querySelector('.form-error');
+
+        if (errorElement) {
+            errorElement.classList.remove('active');
+        }
+
+        input.style.borderColor = '';
+    }
+}
+
+// ============================================
+// SCROLL ANIMATIONS
+// ============================================
+
+class ScrollAnimations {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe elements
+        const elements = document.querySelectorAll('.section__header, .about__bio, .gallery__item');
+        elements.forEach(el => observer.observe(el));
+
+        // Stagger gallery items
+        const galleryItems = document.querySelectorAll('.gallery__item');
+        galleryItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
+    }
+}
+
+// ============================================
+// RESUME DOWNLOAD
+// ============================================
+
+class ResumeDownload {
+    constructor() {
+        this.downloadButton = document.getElementById('downloadCurriculo');
+        this.init();
+    }
+
+    init() {
+        if (!this.downloadButton) return;
+
+        this.downloadButton.addEventListener('click', () => {
+            // Update this path to your actual resume file
+            const cvPath = '/docs/curriculo.pdf';
             const link = document.createElement('a');
             link.href = cvPath;
-            link.download = 'Curriculo_Caê_Kokubo.pdf'; // Nome do arquivo quando for baixado
+            link.download = 'Curriculo_Caê_Kokubo.pdf';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         });
     }
+}
 
-    // 3. Envio do formulário de contato para o email
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        // Para usar formsubmit.co, você só precisa garantir que o action do formulário
-        // aponte para o endpoint deles com o seu e-mail e que os campos de input
-        // tenham os atributos `name` corretos conforme a documentação do FormSubmit.
-        // Já ajustei isso diretamente no seu HTML.
+// ============================================
+// SCROLL INDICATOR
+// ============================================
 
-        // Você pode adicionar uma mensagem de sucesso/erro aqui após o envio, se desejar.
-        // O FormSubmit.co já lida com o redirecionamento ou exibe uma mensagem padrão.
-        contactForm.addEventListener('submit', async (event) => {
-            // O FormSubmit já cuida do envio, então não precisamos de um fetch complexo aqui.
-            // Podemos, no entanto, adicionar uma validação extra se necessário.
-            // Por exemplo, uma mensagem de "enviando..." enquanto aguarda.
+class ScrollIndicator {
+    constructor() {
+        this.indicator = document.querySelector('.hero__scroll-indicator');
+        this.init();
+    }
 
-            // Remova o preventDefault() se quiser que o FormSubmit.co cuide do redirecionamento padrão.
-            // Se você quiser um comportamento customizado (ex: manter na página e mostrar um pop-up de sucesso),
-            // então você precisaria de um backend próprio ou usar AJAX com um serviço de e-mail.
-            // Para simplicidade e o que foi pedido, manteremos o comportamento padrão do FormSubmit.
-            console.log('Formulário enviado!');
+    init() {
+        if (!this.indicator) return;
+
+        this.indicator.addEventListener('click', () => {
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                smoothScrollTo(aboutSection);
+            }
         });
+
+        // Hide indicator on scroll
+        window.addEventListener('scroll', debounce(() => {
+            if (window.pageYOffset > 100) {
+                this.indicator.style.opacity = '0';
+            } else {
+                this.indicator.style.opacity = '1';
+            }
+        }, 100));
+    }
+}
+
+// ============================================
+// INITIALIZE ALL MODULES
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all components
+    new Navigation();
+    new AnimatedCounter();
+    new SkillBars();
+    new ImageGallery();
+    new FormValidator();
+    new ScrollAnimations();
+    new ResumeDownload();
+    new ScrollIndicator();
+
+    // Add loaded class to body for CSS animations
+    document.body.classList.add('loaded');
+
+    console.log('🚀 Portfolio initialized successfully!');
+});
+
+// ============================================
+// PERFORMANCE MONITORING (Optional)
+// ============================================
+
+// Log performance metrics
+window.addEventListener('load', () => {
+    if ('performance' in window) {
+        const perfData = window.performance.timing;
+        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log(`⚡ Page loaded in ${pageLoadTime}ms`);
     }
 });
